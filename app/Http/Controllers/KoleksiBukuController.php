@@ -78,7 +78,5 @@ class KoleksiBukuController extends Controller
         } else {
             return response()->json('You are not authorized.');
         }
-    }
-
-    
+    }    
 }
