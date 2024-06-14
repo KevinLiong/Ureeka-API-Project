@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Session;
 
 class UserController extends Controller
 {
@@ -31,6 +32,7 @@ class UserController extends Controller
 
     public function loginUser(Request $request){
         $userFound = Auth::attempt(['email' => $request->email, 'password' => $request->password]);
+        Session::put('role', $request->isAdmin);
 
         if($userFound){
             return response()->json("Logged In");
@@ -41,6 +43,7 @@ class UserController extends Controller
     }
 
     public function logOutUser(){
+        Session::flush();
         Auth::logout();
 
         return response()->json("Logged Out");
