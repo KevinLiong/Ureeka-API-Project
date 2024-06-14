@@ -31,18 +31,9 @@ class KoleksiBukuController extends Controller
                 'penulis'=>'max:50',
             ]);
 
-            if ($newBook->fails())
-            {
-                return response()->json('Book information is invalid.');
-            }
-            else
-            {
-                $newBook->save();
-                return response()->json($request->judul + ' added.');
-            }
-        } else {
-            return response()->json('You are not authorized.');
-        }
+            if ($newBook->fails()) return response()->json('Book information is invalid.');
+            else return $newBook->save() ? response()->json($request->judul + ' added.') : response()->json('Addition unsuccessful.');
+        } else return response()->json('You are not authorized.');
     }
 
     public function updateBook(Request $request)
@@ -59,11 +50,10 @@ class KoleksiBukuController extends Controller
             $book->penulis = $request->penulis;
             $book->tahun_terbit = $request->tahun_terbit;
 
-            $book->save();
-            return response()->json($request->judul + ' updated.');
-        } else {
-            return response()->json('You are not authorized.');
-        }
+            $message = $request->judul + ' updated.';
+            
+            return $book->save() ? response()->json($message) : response()->json('Update unsuccessful.');
+        } else return response()->json('You are not authorized.');
     }
 
     public function deleteBook($isbn)
@@ -74,9 +64,7 @@ class KoleksiBukuController extends Controller
             $book = koleksi_buku::find($isbn);
             $message = $book->judul + ' deleted.';
             
-            return $book->delete() ? response()->json($message) : response()->json('Deletion unsucessful');
-        } else {
-            return response()->json('You are not authorized.');
-        }
+            return $book->delete() ? response()->json($message) : response()->json('Deletion unsuccessful.');
+        } else return response()->json('You are not authorized.');
     }    
 }
