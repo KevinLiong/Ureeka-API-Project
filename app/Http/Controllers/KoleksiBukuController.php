@@ -30,7 +30,7 @@ class KoleksiBukuController extends Controller
                 'isbn'=>'required|unique',
                 'penulis'=>'max:50',
             ]);
-
+            
             if ($validator->fails()) return response()->json('Book information is invalid.');
             else
             {
