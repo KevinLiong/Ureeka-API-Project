@@ -32,9 +32,9 @@ class UserController extends Controller
 
     public function loginUser(Request $request){
         $userFound = Auth::attempt(['email' => $request->email, 'password' => $request->password]);
-        Session::put('role', $request->isAdmin);
-
+        
         if($userFound){
+            // $request->session()->put();
             return response()->json("Logged In");
         }
         else{
@@ -43,9 +43,7 @@ class UserController extends Controller
     }
 
     public function logOutUser(){
-        Session::flush();
         Auth::logout();
-
         return response()->json("Logged Out");
     }
 }

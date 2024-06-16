@@ -15,10 +15,13 @@ class buku extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'id',
         'judul',
         'isbn',
         'penulis',
         'tahun_terbit'
+    ];
+
+    protected $guarded = [
+        'id'
     ];
 }
