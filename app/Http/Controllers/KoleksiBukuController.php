@@ -2,86 +2,71 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\buku;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Validator;
-use App\Models\buku;
-use Session;
+use Illuminate\Support\Facades\Auth;
 
 class KoleksiBukuController extends Controller
 {
     //
     public function getAllBook()
     {
-        if (Session::has('...'))
-        {
-            $koleksi_buku = buku::all();
-            dd($koleksi_buku);
-            return response()->json($koleksi_buku);
-        }
+        $koleksi_buku = buku::all();
+        dd($koleksi_buku);
+        return response()->json($koleksi_buku);
     }
 
     public function addBook(Request $request)
     {
-        $isAdmin = Session::get('role');
+        $validator = Validator::make($request->all(), [
+            'judul'=>'required|max:100',
+            'isbn'=>'required|unique',
+            'penulis'=>'max:50',
+        ]);
         
-        if ($isAdmin) {
-            $validator = Validator::make($request->all(), [
-                'judul'=>'required|max:100',
-                'isbn'=>'required|unique',
-                'penulis'=>'max:50',
-            ]);
-            
-            if ($validator->fails()) return response()->json('Book information is invalid.');
-            else
-            {
-                $newBook = new buku();
+        if ($validator->fails()) return response()->json('Book information is invalid.');
+        else
+        {
+            $newBook = new buku();
 
-                $newBook->id = $request->id;
-                $newBook->judul = $request->judul;
-                $newBook->isbn = $request->isbn;
-                $newBook->penulis = $request->penulis;
-                $newBook->tahun_terbit = $request->tahun_terbit;
+            $newBook->id = $request->id;
+            $newBook->judul = $request->judul;
+            $newBook->isbn = $request->isbn;
+            $newBook->penulis = $request->penulis;
+            $newBook->tahun_terbit = $request->tahun_terbit;
 
-                return $newBook->save() ? response()->json($request->judul + ' added.') : response()->json('Addition unsuccessful.');
-            }
-        } else return response()->json('You are not authorized.');
+            return $newBook->save() ? response()->json($request->judul + ' added.') : response()->json('Addition unsuccessful.');
+        }
     }
 
     public function updateBook(Request $request, $isbn)
     {
-        $isAdmin = Session::get('role');
+        $book = buku::find($isbn);
         
-        if ($isAdmin) {
-            $book = buku::find($isbn);
-            
-            $validator = Validator::make($request->all(), [
-                'judul'=>'required|max:100',
-                'isbn'=>'required|unique',
-                'penulis'=>'max:50',
-            ]);
+        $validator = Validator::make($request->all(), [
+            'judul'=>'required|max:100',
+            'isbn'=>'required|unique',
+            'penulis'=>'max:50',
+        ]);
 
-            if ($validator->fails()) return response()->json('Book information is invalid.');
-            else
-            {
-                $book->isbn = $request->isbn;
-                $book->judul = $request->judul;
-                $book->penulis = $request->penulis;
-                $book->tahun_terbit = $request->tahun_terbit;
+        if ($validator->fails()) return response()->json('Book information is invalid.');
+        else
+        {
+            $book->isbn = $request->isbn;
+            $book->judul = $request->judul;
+            $book->penulis = $request->penulis;
+            $book->tahun_terbit = $request->tahun_terbit;
 
-                return $book->save() ? response()->json($request->judul + ' updated.') : response()->json('Update unsuccessful.');
-            }            
-        } else return response()->json('You are not authorized.');
+            return $book->save() ? response()->json($request->judul + ' updated.') : response()->json('Update unsuccessful.');
+        }            
     }
 
     public function deleteBook($isbn)
     {
-        $isAdmin = Session::get('role');
+        $book = buku::find($isbn);
+        $message = $book->judul + ' deleted.';
         
-        if ($isAdmin) {
-            $book = buku::find($isbn);
-            $message = $book->judul + ' deleted.';
-            
-            return $book->delete() ? response()->json($message) : response()->json('Deletion unsuccessful.');
-        } else return response()->json('You are not authorized.');
+        return $book->delete() ? response()->json($message) : response()->json('Deletion unsuccessful.');
     }    
 }
