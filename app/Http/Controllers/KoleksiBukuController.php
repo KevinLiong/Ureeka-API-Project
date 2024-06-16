@@ -12,12 +12,9 @@ class KoleksiBukuController extends Controller
     //
     public function getAllBook()
     {
-        if (Auth::check())
-        {
-            $koleksi_buku = buku::all();
-            dd($koleksi_buku);
-            return response()->json($koleksi_buku);
-        }
+        $koleksi_buku = buku::all();
+        dd($koleksi_buku);
+        return response()->json($koleksi_buku);
     }
 
     public function addBook(Request $request)
