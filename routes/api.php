@@ -25,7 +25,7 @@ Route::post('/register', [UserController::class, 'registerUser']);
 Route::post('/login', [UserController::class, 'loginUser']);
 Route::post('/logout', [UserController::class, 'logOutUser']);//->middleware('auth');
 
-Route::post('/allbook', [KoleksiBukuController::class, 'getAllBook']);
+Route::get('/allbook', [KoleksiBukuController::class, 'getAllBook']);
 Route::post('/addbook', [KoleksiBukuController::class, 'addBook']);
-Route::post('/updatebook', [KoleksiBukuController::class, 'updateBook']);
-Route::post('/deletebook', [KoleksiBukuController::class, 'deleteBook']);
+Route::update('/updatebook', [KoleksiBukuController::class, 'updateBook']);
+Route::delete('/deletebook', [KoleksiBukuController::class, 'deleteBook']);
