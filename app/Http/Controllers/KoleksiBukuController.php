@@ -20,6 +20,7 @@ class KoleksiBukuController extends Controller
     public function addBook(Request $request)
     {
         $validatedData = $request->validate([
+            'isbn'=>'required|unique',
             'judul'=>'required|max:100',
             'isbn'=>'required|unique:buku',
             'penulis'=>'required|max:50',
@@ -32,18 +33,18 @@ class KoleksiBukuController extends Controller
         return response()->json($request->judul . 'added.');
     }
 
-    public function updateBook(Request $request, $isbn)
+    public function updateBook(Request $request)
     {
         $validatedData = $request->validate([
-            'judul'=>'required|max:100',
             'isbn'=>'required|unique',
+            'judul'=>'required|max:100',
             'penulis'=>'required|max:50',
             'tahun_terbit'=>'required'
         ]);
         
         if(! $validatedData) return response()->json('Book information is invalid.');
         
-        buku::where('id', $request->id)->update($validatedData);
+        buku::where('isbn', $request->isbn_buku)->update($validatedData);
         return response()->json($request->judul + ' updated.');
     }
 
