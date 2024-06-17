@@ -31,7 +31,7 @@ class UserController extends Controller
     }
 
     public function loginUser(Request $request){
-        if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){
+        if(Auth::attempt($request->only('email', 'password'))) {
             // $request->session()->regenerate();
             dd(Auth::user());
             return response()->json("Logged In");
