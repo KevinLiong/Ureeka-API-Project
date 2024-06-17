@@ -16,9 +16,13 @@ class Roles
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $user = Auth::user();
+        // $user = Auth::user();
 
-        if($user && $user->isAdmin){
+        // if($user && $user->isAdmin){
+        //     return $next($request);
+        // }
+
+        if(Auth::check() && Auth::user() && Auth::user()->isAdmin){
             return $next($request);
         }
 

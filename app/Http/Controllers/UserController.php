@@ -34,7 +34,7 @@ class UserController extends Controller
         $userFound = Auth::attempt(['email' => $request->email, 'password' => $request->password]);
         
         if($userFound){
-            // $request->session()->put();
+            // $request->session()->regenerate();
             return response()->json("Logged In");
         }
         else{
@@ -44,6 +44,8 @@ class UserController extends Controller
 
     public function logOutUser(){
         Auth::logout();
+        // $request->session()->invalidate();
+        // $request->session()->regenerateToken();
         return response()->json("Logged Out");
     }
 }
