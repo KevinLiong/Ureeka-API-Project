@@ -48,11 +48,12 @@ class KoleksiBukuController extends Controller
         return response()->json($request->judul . ' updated.');
     }
 
-    public function deleteBook($isbn)
+    public function deleteBook(Request $request)
     {
-        $book = buku::find($isbn);
+        $book = buku::find($request->isbn);
+        // return response()->json($book);
         $message = $book->judul . ' deleted.';
         
-        return $book->destroy() ? response()->json($message) : response()->json('Deletion unsuccessful.');
+        return $book->destroy($request->isbn) ? response()->json($message) : response()->json('Deletion unsuccessful.');
     }    
 }

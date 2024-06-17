@@ -16,6 +16,8 @@ class buku extends Model
      */
     protected $table = 'buku';
 
+    protected $primaryKey = 'isbn';
+
     protected $fillable = [
         'judul',
         'isbn',

@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('buku', function (Blueprint $table) {
             $table->timestamps();
-            $table->id();
-            $table->char('isbn', 17)->unique();
+            // $table->id();
+            $table->char('isbn', 17)->unique()->primary();
             $table->string('judul', 100);
             $table->string('penulis', 50);
             $table->year('tahun_terbit');
