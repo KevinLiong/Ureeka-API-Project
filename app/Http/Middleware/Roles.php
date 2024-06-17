@@ -21,5 +21,7 @@ class Roles
         if($user && $user->isAdmin){
             return $next($request);
         }
+
+        return response()->json("ga bisa");
     }
 }

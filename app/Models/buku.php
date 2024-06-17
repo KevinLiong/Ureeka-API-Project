@@ -14,6 +14,8 @@ class buku extends Model
      *
      * @var array<int, string>
      */
+    protected $table = 'buku';
+
     protected $fillable = [
         'judul',
         'isbn',

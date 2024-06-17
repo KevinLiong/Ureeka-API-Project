@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('buku', function (Blueprint $table) {
             $table->timestamps();
             $table->id();
-            $table->char('isbn', 13)->unique();
+            $table->char('isbn', 17)->unique();
             $table->string('judul', 100);
             $table->string('penulis', 50);
             $table->year('tahun_terbit');
@@ -27,5 +27,5 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('buku');
-    }
+    }
 };
