@@ -16,16 +16,10 @@ class Roles
      */
     public function handle(Request $request, Closure $next): Response
     {
-        // $user = Auth::user();
-
-        // if($user && $user->isAdmin){
-        //     return $next($request);
-        // }
-
-        if(Auth::check() && Auth::user() && Auth::user()->isAdmin){
+        if(Auth::check() && Auth::user()->isAdmin){
             return $next($request);
         }
 
-        return response()->json("ga bisa");
+        return redirect()->route('/');
     }
 }
