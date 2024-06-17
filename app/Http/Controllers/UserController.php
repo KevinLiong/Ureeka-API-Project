@@ -13,7 +13,7 @@ class UserController extends Controller
     public function registerUser(Request $request){
         // $email_unique = User::find($request->email);
 
-        if(User::find($request->email)) return response()->json("Register Failed");
+        if(User::find($request->email) != null) return response()->json("Register Failed");
 
         $user = User::create([
             'name' => $request->name,
