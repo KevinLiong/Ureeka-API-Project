@@ -19,6 +19,6 @@ class isUser
         if(Auth::check()){
             return $next($request);
         }
-        return redirect()->route("/");
+        return redirect()->route("/login");
     }
 }

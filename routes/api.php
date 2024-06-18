@@ -21,10 +21,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::post('/register', [UserController::class, 'registerUser']);
-Route::post('/login', [UserController::class, 'loginUser'])->name('/');
-Route::post('/logout', [UserController::class, 'logOutUser'])->middleware('isLogin');
+Route::post('/login', [UserController::class, 'loginUser'])->name('/login');
 
+Route::post('/logout', [UserController::class, 'logOutUser']);//->middleware('isLogin');
 Route::get('/allbook', [KoleksiBukuController::class, 'getAllBook']);//->middleware('isLogin');
+
 Route::post('/addbook', [KoleksiBukuController::class, 'addBook']);//->middleware('isAdmin');
 Route::put('/updatebook', [KoleksiBukuController::class, 'updateBook']);//->middleware('isAdmin');
 Route::delete('/deletebook', [KoleksiBukuController::class, 'deleteBook']);//->middleware('isAdmin');

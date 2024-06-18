@@ -20,6 +20,6 @@ class Roles
             return $next($request);
         }
 
-        return redirect()->route('/');
+        return redirect()->view('login');
     }
 }

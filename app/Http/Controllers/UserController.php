@@ -31,9 +31,8 @@ class UserController extends Controller
     }
 
     public function loginUser(Request $request){
-        if(Auth::attempt($request->only('email', 'password'))) {
+        if(Auth::attempt($request->only('email', 'password'))) {    
             // $request->session()->regenerate();
-            dd(Auth::user());
             return response()->json("Logged In");
         }
         else{
@@ -41,7 +40,7 @@ class UserController extends Controller
         }
     }
 
-    public function logOutUser(){
+    public function logOutUser(Request $request){
         Auth::logout();
         // $request->session()->invalidate();
         // $request->session()->regenerateToken();

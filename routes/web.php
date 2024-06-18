@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\KoleksiBukuController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,3 +18,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::view('/login', 'login')->name('login');
+Route::get('/getAllBook', [KoleksiBukuController::class,'getAllBook'])->name('getAllBook')->middleware('isLogin');
