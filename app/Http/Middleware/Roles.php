@@ -16,10 +16,10 @@ class Roles
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $user = Auth::user();
-
-        if($user && $user->isAdmin){
+        if (Auth::check())
+        {
             return $next($request);
         }
+        return redirect()->route("/");
     }
 }

@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-
+    
 
 Route::post('/register', [UserController::class, 'registerUser']);
 Route::post('/login', [UserController::class, 'loginUser']);
@@ -27,5 +27,10 @@ Route::post('/logout', [UserController::class, 'logOutUser']);//->middleware('au
 
 Route::post('/allbook', [KoleksiBukuController::class, 'getAllBook']);
 Route::post('/addbook', [KoleksiBukuController::class, 'addBook']);
+<<<<<<< Updated upstream
 Route::post('/updatebook', [KoleksiBukuController::class, 'updateBook']);
 Route::post('/deletebook', [KoleksiBukuController::class, 'deleteBook']);
+=======
+Route::update('/updatebook', [KoleksiBukuController::class, 'updateBook']);
+Route::delete('/deletebook', [KoleksiBukuController::class, 'deleteBook']); 
+>>>>>>> Stashed changes
